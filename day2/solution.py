@@ -37,7 +37,7 @@ def get_program_first_value(program: List[int]) -> int:
     return first_value
 
 
-def get_result_first_value_4090689() -> int:
+def get_result_first_value_19690720() -> int:
     final_noun: int
     final_verb: int
     for noun, verb in itertools.product(range(100), range(100)):
