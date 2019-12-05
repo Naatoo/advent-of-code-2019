@@ -14,14 +14,16 @@ def process_program_part_1(program: List[int], input_value: int) -> List[int]:
         opcode: int = int(instruction_value[-2:])
         if opcode == 99:
             yield 'opcode_99'
-        par_1, par_2, par_3 = (int(instruction_value[digit_index]) if len(instruction_value) >= abs(digit_index) else 0
-                               for digit_index in range(-3, -6, -1))
-        assert all(par in (0, 1) for par in (par_1, par_2, par_3)), f"{par_1}, {par_2}, {par_3}"
+        mode_par_1, mode_par_2, mode_par_3 = (int(instruction_value[digit_index])
+                                              if len(instruction_value) >= abs(digit_index) else 0
+                                              for digit_index in range(-3, -6, -1))
+        assert all(par in (0, 1) for par in (mode_par_1, mode_par_2, mode_par_3)), \
+            f"{mode_par_1}, {mode_par_2}, {mode_par_3}"
         if opcode in [1, 2, 3]:
             if opcode in [1, 2]:
                 input_1, input_2 = (program[index + instruction_index + 1] if par == 1
                                     else program[program[index + instruction_index + 1]]
-                                    for instruction_index, par in enumerate((par_1, par_2)))
+                                    for instruction_index, par in enumerate((mode_par_1, mode_par_2)))
                 write_value: int = get_score(opcode, input_1, input_2)
                 write_address: int = program[index + 3]
                 index += 4
@@ -31,7 +33,7 @@ def process_program_part_1(program: List[int], input_value: int) -> List[int]:
                 index += 2
             program[write_address] = write_value
         elif opcode == 4:
-            yield_value: int = program[index + 1] if par_1 == 1 else program[program[index + 1]]
+            yield_value: int = program[index + 1] if mode_par_1 == 1 else program[program[index + 1]]
             yield yield_value
             index += 2
         else:
@@ -70,12 +72,14 @@ def process_program_part_2(program: List[int], input_value: int) -> List[int]:
         opcode: int = int(instruction_value[-2:])
         if opcode == 99:
             yield 'opcode_99'
-        par_1, par_2, par_3 = (int(instruction_value[digit_index]) if len(instruction_value) >= abs(digit_index) else 0
-                               for digit_index in range(-3, -6, -1))
-        assert all(par in (0, 1) for par in (par_1, par_2, par_3)), f"{par_1}, {par_2}, {par_3}"
+        mode_par_1, mode_par_2, mode_par_3 = (int(instruction_value[digit_index])
+                                              if len(instruction_value) >= abs(digit_index) else 0
+                                              for digit_index in range(-3, -6, -1))
+        assert all(par in (0, 1) for par in (mode_par_1, mode_par_2, mode_par_3)), \
+            f"{mode_par_1}, {mode_par_2}, {mode_par_3}"
         input_1, input_2 = (program[index + instruction_index + 1] if par == 1
                             else program[program[index + instruction_index + 1]]
-                            for instruction_index, par in enumerate((par_1, par_2)))
+                            for instruction_index, par in enumerate((mode_par_1, mode_par_2)))
         if opcode in [1, 2, 3]:
             if opcode in [1, 2]:
                 write_value: int = get_score(opcode, input_1, input_2)
@@ -87,7 +91,7 @@ def process_program_part_2(program: List[int], input_value: int) -> List[int]:
                 index += 2
             program[write_address] = write_value
         elif opcode == 4:
-            yield_value: int = program[index + 1] if par_1 == 1 else program[program[index + 1]]
+            yield_value: int = program[index + 1] if mode_par_1 == 1 else program[program[index + 1]]
             yield yield_value
             index += 2
         elif opcode == 5:
