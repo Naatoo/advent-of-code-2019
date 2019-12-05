@@ -65,5 +65,5 @@ if __name__ == "__main__":
     part_1_result: int = get_program_first_value(process_program(get_programs()))
     print("PART1:", part_1_result)
 
-    part_2_result: int = get_result_first_value_4090689()
+    part_2_result: int = get_result_first_value_19690720()
     print("PART2:", part_2_result)
